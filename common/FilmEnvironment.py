@@ -3,6 +3,7 @@ from __future__ import division
 from __future__ import print_function
 
 import abc
+from typing import Any
 import tensorflow as tf
 import numpy as np
 import copy
@@ -11,6 +12,7 @@ from tf_agents.environments import py_environment
 from tf_agents.environments import utils
 from tf_agents.specs import array_spec
 from tf_agents.environments import wrappers
+from tf_agents.typing import types
 #from tf_agents.environments import suite_gymbush
 from agents.tf_agents.trajectories import time_step as ts
 
@@ -137,6 +139,9 @@ class FilmEnvironment(py_environment.PyEnvironment):
 
     def current_time_step(self):
         return self._current_time_step
+    
+    def get_info(self):
+        return [self.target, self.weight, self.observation_loss, self._state]
 
     def _step(self, action):
         """Apply action and return new time_step."""
