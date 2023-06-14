@@ -2,7 +2,7 @@
 
 import sys
 sys.path.append('./agents/')
-sys.path.append('/home/peterjaq/project/optical-film-maker')
+sys.path.append('/Users/sawzedong/desktop/sci-soc/ihpc-project/optical-film-maker')
 
 import tensorflow as tf
 

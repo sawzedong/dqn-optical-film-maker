@@ -1,7 +1,7 @@
 
 import sys
 sys.path.append('./agents/')
-sys.path.append('/home/peterjaq/project/optical-film-maker')
+sys.path.append('./')
 
 print(sys.path)
 
@@ -124,9 +124,14 @@ for _ in range(num_iterations):
   train_loss = agent.train(experience).loss
 
   step = agent.train_step_counter.numpy()
-  print(train_loss)
+  with open("./log/run_logs/run.txt", "a") as file:
+        file.write(str(step) + "\n")
+        file.close()
   if step % log_interval == 0:
-    print('step = {0}: loss = {1}'.format(step, train_loss))
+    with open("./log/run_logs/run.txt", "a") as file:
+        print('step = {0}: loss = {1}'.format(step, train_loss))
+        file.write('\nstep = {0}: loss = {1}\n'.format(step, train_loss))
+        file.close()
                                                            
 
 

@@ -33,7 +33,7 @@ class MaterialLoader:
         info_path = 'library.yml'
         
         fileYml = open(os.path.join(self.db_path,info_path), encoding='UTF-8')
-        db_info = yaml.load(fileYml)
+        db_info = yaml.load(fileYml, Loader=yaml.SafeLoader)
     
         return db_info
 
@@ -115,7 +115,7 @@ class MaterialLoader:
     def rex_wavelength_info(self, info):
         try:
             wavelength_range = re.findall('-?\d+\.\d*\d*?',info)
-            if len(wavelength_range) is 2:
+            if len(wavelength_range) == 2:
                 wavelength_start, wavelength_end = wavelength_range[0], wavelength_range[1]
             else:
                 wavelength_start = wavelength_range[0]
@@ -168,7 +168,7 @@ class MaterialLoader:
     def load_material_parameter(self, path):
         
         fileYml = open(os.path.join(self.db_path, 'data', path), encoding='UTF-8')
-        datas = yaml.load(fileYml)
+        datas = yaml.load(fileYml, Loader=yaml.SafeLoader)
         if len(datas['DATA']) == 1:
             datas_type = datas['DATA'][0]['type']
             wl = []
@@ -315,9 +315,9 @@ class MaterialLoader:
         Returns:
             [type] -- [description]
         """
-        if shelfs is 'total':
+        if shelfs == 'total':
             materials_name, material_data = self.load_material(self.shelf)
-        elif shelfs is not 'total':
+        elif shelfs != 'total':
             materials_name, material_data = self.load_material(shelfs_list)
 
         return materials_name, material_data
@@ -326,7 +326,7 @@ class MaterialLoader:
     def load_material_data(self, path):
 
         fileYml = open(os.path.join(self.db_path, path), encoding='UTF-8')
-        db_info = yaml.load(fileYml)
+        db_info = yaml.load(fileYml, Loader=yaml.SafeLoader)
 
 
     
