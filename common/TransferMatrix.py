@@ -355,9 +355,9 @@ if __name__ == "__main__":
         OM.RunSim(thickness=[79, 32, 81, 100])
         x = np.arange(350, 1200, 1)
 
-        print(f'优化过程中的状态: [吸收]{np.mean(OM.simulation_result[0])}, \
-                                [投射]{np.mean(OM.simulation_result[1])}, \
-                                [反射]{np.mean(OM.simulation_result)}')
+        print(f'Postoptimisation state: [Absorption]{np.mean(OM.simulation_result[0])}, \
+                                        [Transmission]{np.mean(OM.simulation_result[1])}, \
+                                        [Reflection]{np.mean(OM.simulation_result)}')
 
         plt.plot(x, OM.simulation_result[0], 'r--',
                 x, OM.simulation_result[1], 'bs',

@@ -6,8 +6,8 @@ class Logger():
     
     def __init__(self,
                 logger_type='csv',
-                csv_log_path = '/Users/sawzedong/desktop/sci-soc/ihpc-project/optical-film-maker/log/csv_logs/',
-                run_log_path = '/Users/sawzedong/desktop/sci-soc/ihpc-project/optical-film-maker/log/run_logs/'):
+                csv_log_path = './log/csv_logs/',
+                run_log_path = './log/run_logs/'):
 
 
         self.logger_type = logger_type

@@ -150,7 +150,7 @@ class FilmEnvironment(py_environment.PyEnvironment):
         self._state[action_layer] += self.action_list[action_num]
 
         if self.debug:
-            print(f'Round {self.round} 薄膜结构: {self._state}, 前序观测: {self.pre_observation}')
+            print(f'Round {self.round} Film Composition: {self._state}, Pre Observation: {self.pre_observation}')
         if self.save_log:
             self.logger.log_record_csv(self._state)
 
