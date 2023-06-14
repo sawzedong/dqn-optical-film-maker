@@ -111,6 +111,7 @@ class FilmEnvironment(py_environment.PyEnvironment):
 
         # 计算observation
         observation_loss = self.opticalModel.simulation_result
+        self.observation_loss = self.opticalModel.simulation_result
         observation_loss = film_loss(aim          = self.target, 
                                 weight       = self.weight,
                                 observation  = observation_loss,
@@ -160,6 +161,7 @@ class FilmEnvironment(py_environment.PyEnvironment):
 
         # 计算observation
         observation_loss = self.opticalModel.simulation_result
+        self.observation_loss = self.opticalModel.simulation_result
         observation_loss = film_loss(aim          = self.target, 
                                 weight       = self.weight,
                                 observation  = observation_loss,

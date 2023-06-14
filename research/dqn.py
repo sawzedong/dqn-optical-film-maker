@@ -39,7 +39,7 @@ replay_buffer_max_length = 100000  # @param {type:"integer"}
 
 batch_size = 64  # @param {type:"integer"}
 learning_rate = 1e-3  # @param {type:"number"}
-log_interval = 200  # @param {type:"integer"}
+log_interval = 1  # @param {type:"integer"}
 
 num_eval_episodes = 10  # @param {type:"integer"}
 eval_interval = 1000  # @param {type:"integer"}
@@ -125,13 +125,27 @@ for _ in range(num_iterations):
 
   step = agent.train_step_counter.numpy()
   with open("./log/run_logs/run.txt", "a") as file:
-        file.write(str(step) + "\n")
-        file.close()
-  if step % log_interval == 0:
-    with open("./log/run_logs/run.txt", "a") as file:
+    if step % log_interval == 0:
         print('step = {0}: loss = {1}'.format(step, train_loss))
-        file.write('\nstep = {0}: loss = {1}\n'.format(step, train_loss))
+        file.write('\n\n\nstep = {0}: loss = {1}\n'.format(step, train_loss))
+
+        weight = filmEnv.weight
+        aim = filmEnv.target
+        observation = filmEnv.observationLoss
+        loss_absorbation   = np.mean(weight['Absorption'] * (abs(aim['Absorption'] - observation[0])))
+        loss_transimission = np.mean(weight['Transmission'] * (abs(aim['Transmission'] - observation[1])))
+        loss_refraction    = np.mean(weight['Reflection'] * (abs(aim['Reflection'] - observation[2])))
+
+        file.write(f"Composition: [{','.join(filmEnv._state)}]")
+        file.write(f'Postoptimisation state: [Absorption]{np.mean(observation[0])}, [Transmission]{np.mean(observation[1])}, [Reflection]{np.mean(observation[2])}\n')
+        file.write(f"Ideal state: [Absorption]{np.mean(aim['Absorption'])}, [Transmission]{np.mean(aim['Transmission'])}, [Reflection]{np.mean(aim['Reflection'])}\n")
+        file.write(f"film_loss: {np.sum([loss_absorbation, loss_transimission, loss_refraction])}\n")
+        file.write(f"observation: {1 / np.sum([loss_absorbation, loss_transimission, loss_refraction])}\n")
+        
+
+        file.write('')
         file.close()
+      
                                                            
 
 
