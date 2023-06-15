@@ -9,8 +9,10 @@ from common.DataLoader import MaterialLoader
 from common.TransferMatrix import OpticalModeling
 from common.Config import FilmConfig
 from common.utils.FilmLoss import film_loss
+from common import Checkpointer
 
 from tf_agents.agents.dqn import dqn_agent
+from tf_agents.policies import policy_saver
 from tf_agents.drivers import dynamic_step_driver
 from tf_agents.eval import metric_utils
 from tf_agents.metrics import tf_metrics
@@ -20,6 +22,9 @@ from tf_agents.replay_buffers import tf_uniform_replay_buffer
 from tf_agents.trajectories import trajectory
 from tf_agents.environments import tf_py_environment
 from tf_agents.utils.common import *
+
+from absl import logging
+logging.set_verbosity(logging.ERROR)
 
 #from common.FilmEnvironment import FilmEnvironment 
 
@@ -40,6 +45,7 @@ replay_buffer_max_length = 100000  # @param {type:"integer"}
 batch_size = 64  # @param {type:"integer"}
 learning_rate = 1e-3  # @param {type:"number"}
 log_interval = 1  # @param {type:"integer"}
+save_interval = 1 # @param {type:"integer"}
 
 num_eval_episodes = 10  # @param {type:"integer"}
 eval_interval = 1000  # @param {type:"integer"}
@@ -53,6 +59,7 @@ q_net = q_network.QNetwork(
     fc_layer_params=fc_layer_params)
 
 optimizer = tf.compat.v1.train.AdamOptimizer(learning_rate=learning_rate)
+global_step = tf.compat.v1.train.get_or_create_global_step()
 
 train_step_counter = tf.Variable(0)
 
@@ -73,6 +80,21 @@ replay_buffer = tf_uniform_replay_buffer.TFUniformReplayBuffer(
     data_spec=agent.collect_data_spec,
     batch_size=filmEnv.batch_size,
     max_length=replay_buffer_max_length)
+
+
+checkpoint_dir = "./log/checkpoints/"
+train_checkpointer = Checkpointer(
+    ckpt_dir=checkpoint_dir,
+    max_to_keep=1,
+    agent=agent,
+    policy=agent.policy,
+    replay_buffer=replay_buffer,
+    global_step=global_step
+)
+
+policy_dir = os.path.join("./log/checkpoints")
+tf_policy_saver = policy_saver.PolicySaver(agent.policy)
+
 
 def collect_step(environment, policy, buffer):
   time_step = environment.current_time_step()
@@ -148,6 +170,10 @@ for _ in range(num_iterations):
 
         file.write('')
         file.close()
+
+  if step % save_interval == 0:
+    train_checkpointer.save(global_step)
+    tf_policy_saver.save(policy_dir)
       
                                                            
 

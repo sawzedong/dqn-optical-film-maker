@@ -1,0 +1,27 @@
+
+
+
+step = 1: loss = 15617758208.0
+Composition: [26.836681044086088, 57.59900876039317, 38.77529671220079, 48.35200453177271]
+Postoptimisation state: [Absorption]0.23314995581024658, [Transmission]0.04297301701653865, [Reflection]0.7238770271732149
+Ideal state: [Absorption]1.0, [Transmission]0.0, [Reflection]0.0
+film_loss: 1.5531662432859832
+observation: 0.6438460817203525
+
+
+
+step = 2: loss = 31234662400.0
+Composition: [56.3682319822123, 4.374416469054198, 12.550303389250736, 36.060169134147166]
+Postoptimisation state: [Absorption]0.35462558125183236, [Transmission]-0.0785026084250471, [Reflection]0.7238770271732149
+Ideal state: [Absorption]1.0, [Transmission]0.0, [Reflection]0.0
+film_loss: 1.5037328687132017
+observation: 0.6650117323402899
+
+
+
+step = 3: loss = 31234596864.0
+Composition: [19.74778161593814, 40.03364456647295, 52.11964534070816, 59.573966043899794]
+Postoptimisation state: [Absorption]0.23976621183569008, [Transmission]0.036356760991095145, [Reflection]0.7238770271732149
+Ideal state: [Absorption]1.0, [Transmission]0.0, [Reflection]0.0
+film_loss: 1.5403420003308186
+observation: 0.6492064747862685
