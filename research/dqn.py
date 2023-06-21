@@ -26,6 +26,8 @@ from tf_agents.utils.common import *
 from absl import logging
 logging.set_verbosity(logging.ERROR)
 
+import datetime
+
 #from common.FilmEnvironment import FilmEnvironment 
 
 import tensorflow as tf 
@@ -33,6 +35,7 @@ import numpy as np
 
 from common.FilmEnvironment import FilmEnvironment
 filmEnv = FilmEnvironment(config_path='Zn.ini', random_init=True, debug=False)
+logtime = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 
 filmEnv = tf_py_environment.TFPyEnvironment(filmEnv)
 
@@ -147,7 +150,7 @@ for _ in range(num_iterations):
 
   step = agent.train_step_counter.numpy()
 
-  with open("./log/run_logs/run.txt", "a") as file:
+  with open(f"./log/run_logs/run_{logtime}.txt", "a") as file:
     if step % log_interval == 0:
         print('step = {0}: loss = {1}'.format(step, train_loss))
         file.write('\n\n\nstep = {0}: loss = {1}\n'.format(step, train_loss))
