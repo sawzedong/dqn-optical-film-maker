@@ -48,7 +48,7 @@ replay_buffer_max_length = 100000  # @param {type:"integer"}
 batch_size = 64  # @param {type:"integer"}
 learning_rate = 1e-3  # @param {type:"number"}
 log_interval = 1  # @param {type:"integer"}
-save_interval = 1 # @param {type:"integer"}
+save_interval = 20 # @param {type:"integer"}
 
 num_eval_episodes = 10  # @param {type:"integer"}
 eval_interval = 1000  # @param {type:"integer"}
