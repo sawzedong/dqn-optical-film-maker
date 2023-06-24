@@ -34,7 +34,7 @@ import tensorflow as tf
 import numpy as np
 
 from common.FilmEnvironment import FilmEnvironment
-filmEnv = FilmEnvironment(config_path='Zn.ini', random_init=True, debug=False)
+filmEnv = FilmEnvironment(config_path='Zn.ini', random_init=True, debug=True)
 logtime = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 
 filmEnv = tf_py_environment.TFPyEnvironment(filmEnv)
